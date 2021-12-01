@@ -8,6 +8,6 @@ const cosasEsquema = new Schema({
 
 //crear modelo
 
-const mascotas = mongoose.model('mascotas',cosasEsquema);
+const tiendas = mongoose.model('tiendas',cosasEsquema);
 
-module.exports = mascotas;
+module.exports = tiendas;

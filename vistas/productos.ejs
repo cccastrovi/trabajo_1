@@ -1,0 +1,30 @@
+<%-include("template/head.ejs",{tituloWeb:"Productos"})%>
+
+    <div class="container">
+      <a href="productos/crear" class="btn btn-success my-4">Crear</a>
+
+        <table class="table caption-top">
+            <caption>Lista de Productos</caption>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% if (arrayProductos.length > 0) { %>
+                    <% arrayProductos.forEach(productos => { %>
+                        <tr>
+                            <th scope="row"><%= productos.id %> </th>
+                            <td><%= productos.nombre %> </td>
+                            <td><%= productos.descripcion %></td>
+                            <td><a href="productos/<%= productos.id %>" class="btn btn-warning btn-sm">Modificar</a></td>
+                          </tr>
+                    <% }) %>
+                   <% } %>
+            </tbody>
+          </table>
+    </div>
+<%-include("template/footer.ejs")%> 

@@ -1,0 +1,85 @@
+<%- include("template/head.ejs", {tituloWeb: "Detalle del Producto"}) %>
+
+<div class="container">
+    <h1>Detalle del Producto</h1>
+
+    <% if (error) {%>
+        <p>
+            <%= mensaje %> 
+        </p>
+
+        <a href="/productos" class="">Volver a Productos</a>
+        <% } %>  
+        <% if (!error) { %>
+
+            <form id="formularioEditar" data-id="<%= producto.id %> ">
+                <input type="text" class="form-control my-2" name="nombre" value="<%= producto.nombre %>" id="nombreInput">
+                <input type="text" class="form-control my-2" name="descripcion" value="<%= producto.descripcion %>" id="descripcionInput">
+                <button class="btn btn-warning btn-sm" type="submit">Editar</button>
+            </form>    
+                   
+            <hr>
+                <td><button class="btn btn-danger btn-sm mt-3" id="btnEliminar" data-id="<%= producto.id %>">Eliminar</button></td>
+       
+        <%}%>
+</div>
+
+<%- include("template/footer.ejs") %> 
+
+<script>
+
+const formularioEditar = document.querySelector('#formularioEditar')
+    formularioEditar.addEventListener('submit', async (e) => {
+        e.preventDefault()
+
+        const nombre = document.querySelector('#nombreInput').value
+        const descripcion = document.querySelector('#descripcionInput').value
+        const id = formularioEditar.dataset.id
+
+        try {
+            const data = await fetch(`/productos/${id}`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({nombre,descripcion})
+            })
+
+            const respuesta = await data.json()
+
+            console.log(respuesta)
+
+            if (respuesta.estado) {
+                window.location.href = '/productos'
+            } else {
+                console.log(respuesta)
+            }
+
+            console.log(respuesta)
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
+    const btnEliminar = document.querySelector('#btnEliminar')
+
+    btnEliminar.addEventListener('click', async() => {
+        console.log('me diste un click')
+        const id = btnEliminar.dataset.id
+        console.log('id', id)
+        try {
+            const dato = await fetch(`/productos/${id}`,{method:'delete'})
+            const respuesta = await dato.json()
+        
+            if (respuesta.estado) {
+                window.location.href = '/productos'
+            } else {
+                console.log(respuesta)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    })
+
+    
+</script>

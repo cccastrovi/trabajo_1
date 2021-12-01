@@ -1,5 +1,11 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
+
+//prosesar datos del formulario 
+app.use(bodyParser.urlencoded({extended:false}));
+//envio de los datos del formulario usando json 
+app.use(bodyParser.json());
 
 require('dotenv').config()
 
@@ -14,7 +20,6 @@ app.use(express.static(__dirname + "/publico"));
 //coneccion a la base de datos
 const mongoose = require('mongoose');
 
-
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.94ivi.mongodb.net/${process.env.NAME}?retryWrites=true&w=majority`;
 
 
@@ -25,10 +30,10 @@ mongoose.connect(uri,{useNewUrlParser: true, useUnifiedTopology: true})
 
 //rutas web
 app.use('/',require('./rutas/rutas'));
-app.use('/mascotas',require('./rutas/mascotas'));
+app.use('/productos',require('./rutas/Productos'));
 
 app.use((req,res,next) => {
-    res.status(404).render('404');
+    res.status(404).render('404'); 
 })
 
 app.listen(port,() => {
