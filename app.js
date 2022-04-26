@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+// static files
+app.use( express.static( "publico" ) );
+
 //prosesar datos del formulario 
 app.use(bodyParser.urlencoded({extended:false}));
 //envio de los datos del formulario usando json 

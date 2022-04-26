@@ -2,7 +2,7 @@ const express = require('express');
 const rutas = express.Router();
 
 rutas.get('/',(req, res) => {
-    res.render('index',{titulo: 'Estamos mejornando'});
+    res.render('index',{titulo: '¡Bienvenido!'});
 });
 
 rutas.get('/servicios',(req, res) => {
